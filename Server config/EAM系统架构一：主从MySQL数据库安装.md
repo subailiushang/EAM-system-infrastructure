@@ -25,3 +25,64 @@ MySQL服务有多种安装方式：
 [root@MySQL_Master_Node01 ~]# tar xvf mysql-5.7.16-1.el6.x86_64.rpm-bundle.tar
 ```
 ![2.2 MySQL校验安装.PNG](D:\EAM系统基础架构\EAM-system-infrastructure\Pictures\2.2MySQL校验安装.PNG)
+```language
+[root@MySQL_Master_Node01 ~]# yum install mysql-community-* -y
+```
+###### 2.3 查看my.cnf配置文件，了解mysql文件的目录
+```language
+[root@MySQL_Master_Node01 ~]# cat /etc/my.cnf
+# For advice on how to change settings please see
+# http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
+
+[mysqld]
+#
+# Remove leading # and set to the amount of RAM for the most important data
+# cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
+# innodb_buffer_pool_size = 128M
+#
+# Remove leading # to turn on a very important data integrity option: logging
+# changes to the binary log between backups.
+# log_bin
+#
+# Remove leading # to set options mainly useful for reporting servers.
+# The server defaults are faster for transactions and fast SELECTs.
+# Adjust sizes as needed, experiment to find the optimal values.
+# join_buffer_size = 128M
+# sort_buffer_size = 2M
+# read_rnd_buffer_size = 2M
+datadir=/var/lib/mysql #数据库存放目录
+socket=/var/lib/mysql/mysql.sock #socket通信文件存放目录
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+log-error=/var/log/mysqld.log #错误日志目录
+pid-file=/var/run/mysqld/mysqld.pid #进程号目录
+```
+
+##### 3. 启动验证MySQL数据库
+
+```language
+[root@MySQL_Master_Node01 ~]# /etc/init.d/mysqld start
+Starting mysqld:                                           [  OK  ]
+[root@MySQL_Master_Node01 ~]# netstat -lntup | grep 3306
+tcp        0      0 :::3306                     :::*                        LISTEN      2115/mysqld
+[root@MySQL_Master_Node01 ~]# ps -ef | grep mysqld
+root       1915      1  0 23:29 pts/0    00:00:00 /bin/sh /usr/bin/mysqld_safe --datadir=/var/lib/mysql --socket=/var/lib/mysql/mysql.sock --pid-file=/var/run/mysqld/mysqld.pid --basedir=/usr --user=mysql
+mysql      2115   1915  0 23:29 pts/0    00:00:00 /usr/sbin/mysqld --basedir=/usr --datadir=/var/lib/mysql --plugin-dir=/usr/lib64/mysql/plugin --user=mysql --log-error=/var/log/mysqld.log --pid-file=/var/run/mysqld/mysqld.pid --socket=/var/lib/mysql/mysql.sock
+root       2158   1362  0 23:32 pts/0    00:00:00 grep mysqld
+```
+
+##### 4. 设置数据库管理员密码
+
+由于rpm包安装完mysql后会出现mysqladm无法修改密码的情况，可以使用--skip-grant-tables跳过密码验证后重新设置密码：
+*此处应该注意在mysql 5.7版本中修改密码由原来的password字段修改为 authentication_string
+具体不同版本可以通过 select * from mysql.user \G 进行查看
+```language
+[root@MySQL_Master_Node01 ~]# /etc/init.d/mysqld stop
+[root@MySQL_Master_Node01 ~]# mysqld_safe --user=mysql --skip-grant-tables --skip-networking &
+[root@MySQL_Master_Node01 ~]# mysql -u root mysql
+mysql> use mysql;
+mysql> update user set authentication_string=password('P@ssw0rd') where user='root' and host='localhost';
+mysql> flush privileges;
+```
