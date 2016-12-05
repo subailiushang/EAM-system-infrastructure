@@ -24,7 +24,7 @@ MySQL服务有多种安装方式：
 [root@MySQL_Master_Node01 ~]# md5sum mysql-5.7.16-1.el6.x86_64.rpm-bundle.tar
 [root@MySQL_Master_Node01 ~]# tar xvf mysql-5.7.16-1.el6.x86_64.rpm-bundle.tar
 ```
-![2.2 MySQL校验安装.PNG](D:\EAM系统基础架构\EAM-system-infrastructure\Pictures\2.2MySQL校验安装.PNG)
+![2.2 MySQL校验安装.PNG](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/2.2MySQL%E6%A0%A1%E9%AA%8C%E5%AE%89%E8%A3%85.PNG)
 ```language
 [root@MySQL_Master_Node01 ~]# yum install mysql-community-* -y
 ```
