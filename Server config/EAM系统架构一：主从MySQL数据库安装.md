@@ -75,14 +75,17 @@ root       2158   1362  0 23:32 pts/0    00:00:00 grep mysqld
 
 ##### 4. 设置数据库管理员密码
 
-由于rpm包安装完mysql后会出现mysqladm无法修改密码的情况，可以使用--skip-grant-tables跳过密码验证后重新设置密码：
-*此处应该注意在mysql 5.7版本中修改密码由原来的password字段修改为 authentication_string
-具体不同版本可以通过 select * from mysql.user \G 进行查看
-```language
-[root@MySQL_Master_Node01 ~]# /etc/init.d/mysqld stop
-[root@MySQL_Master_Node01 ~]# mysqld_safe --user=mysql --skip-grant-tables --skip-networking &
-[root@MySQL_Master_Node01 ~]# mysql -u root mysql
-mysql> use mysql;
-mysql> update user set authentication_string=password('P@ssw0rd') where user='root' and host='localhost';
-mysql> flush privileges;
+mysqld服务安装完成以后可以使用命令 {usages:start|stop|restart|status} 对MySQL服务进行管理，同样也可以把mysqld服务加入到系统的启动项中。
+初始化启动mysqld的时候，无法使用 mysqladm 对 root@localhost 进行密码的修改，一个临时的密码会被存放在错误日志中，我们可以使用以下命令进行修改：
+
 ```
+shell> grep 'temporary password' /var/log/mysqld.log #获得mysql的临时密码
+shell> mysql -uroot -p #使用临时密码进行登陆
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!'; #修改root密码
+```
+
+##### 5. MySQL官方权威安装指南
+
+[MySQL 5.7.16官方安装指南](http://dev.mysql.com/doc/refman/5.7/en/linux-installation-rpm.html)
+
+MySQL不同的版本，会存在不同的安装方式，建议在安装MySQL服务前，详细的看一下官方的说明
