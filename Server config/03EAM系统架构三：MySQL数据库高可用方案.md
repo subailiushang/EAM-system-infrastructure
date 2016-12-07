@@ -521,9 +521,11 @@ MySQL_Master_Node01 192.168.42.253/24/eth0:1 mysqld
 [root@MySQL_Master_Node01 ~]# /etc/init.d/mysqld stop
 [root@MySQL_Master_Node01 ~]# /etc/init.d/heartbeat start
 ```
-![MySQL_Master_Node01_ifconfig.png](D:\EAM系统基础架构\EAM-system-infrastructure\Pictures\MySQL_Master_Node01_ifconfig.png)
+![MySQL_Master_Node01_ifconfig.png]
+(https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/MySQL_Master_Node01_ifconfig.png)
 
-![snipaste20161207_131725.png](D:\EAM系统基础架构\EAM-system-infrastructure\Pictures\snipaste20161207_131725.png)
+![snipaste20161207_131725.png]
+(https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/snipaste20161207_131725.png)
 
 备节点测试：
 * 关闭主节点heartbeat 服务
@@ -534,9 +536,11 @@ MySQL_Master_Node01 192.168.42.253/24/eth0:1 mysqld
 Stopping High-Availability services: Done.
 ```
 
-![snipaste20161207_132107.png](D:\EAM系统基础架构\EAM-system-infrastructure\Pictures\snipaste20161207_132107.png)
+![snipaste20161207_132107.png]
+(https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/snipaste20161207_132107.png)
 
-![snipaste20161207_132240.png](D:\EAM系统基础架构\EAM-system-infrastructure\Pictures\snipaste20161207_132240.png)
+![snipaste20161207_132240.png]
+(https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/snipaste20161207_132240.png)
 
 ##### 4. 注意事项
 heartbeat软件不是基于服务的。也就是单纯的mysql服务出现故障是不会切换到备节点的
