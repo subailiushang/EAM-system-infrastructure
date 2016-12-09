@@ -125,3 +125,11 @@ httpd: Could not reliably determine the server's fully qualified domain name, us
 [root@zabbix_server ~]# /etc/init.d/zabbix-server start
 Starting Zabbix server:   
 ```
+![zabbix1](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix1.PNG)
+
+![zabbix2](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix2.PNG)
+
+![zabbix3](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix3.PNG)
+![zabbix4](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix4.PNG)
+![zabbix5](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix5.PNG)
+![zabbix6](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix6.PNG?raw=true)
