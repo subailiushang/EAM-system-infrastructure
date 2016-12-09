@@ -73,7 +73,7 @@ tcp        0      0 :::3306                     :::*                        LIST
 
 ##### 2. 安装zabbix软件
 
-http://repo.zabbix.com/zabbix/3.2/rhel/6/x86_64/
+[zabbix官方镜像站点](http://repo.zabbix.com/zabbix/3.2/rhel/6/x86_64/)
 ```language
 [root@zabbix_server ~]# mkdir zabbix
 [root@zabbix_server ~]# cd zabbix/
@@ -95,7 +95,10 @@ total 736
 -rw-r--r-- 1 root root    831 Oct  3 12:37 httpd24-example.conf
 -rw-r--r-- 1 root root     52 Sep 30 17:43 NEWS
 -rw-r--r-- 1 root root    188 Sep 30 17:42 README
+
+#将php的时区修改为Asia/Shanghai
 [root@zabbix_server zabbix-web-3.2.1]# cp httpd22-example.conf /etc/httpd/conf.d/zabbix.conf
+
 [root@zabbix_server doc]# cd zabbix-server-mysql-3.2.1/
 [root@zabbix_server zabbix-server-mysql-3.2.1]# ll
 total 1864
@@ -115,6 +118,10 @@ grant all privileges on zabbix.* to 'zabbix'@'localhost' identified by 'zabbix';
 mysql> flush privileges;
 [root@zabbix_server zabbix-server-mysql-3.2.1]# mysql -uzabbix -pzabbix zabbix < create.sql
 ```
+修改/etc/zabbix/zabbix_server.conf配置文件
+```
+#指定IP地址为主机ip地址，DBPassword为zabbix数据库的密码，DBSocket为mysql.sock所在的路径
+```
 启动zabbix服务
 ```language
 [root@zabbix_server ~]# /etc/init.d/httpd restart
@@ -126,9 +133,7 @@ httpd: Could not reliably determine the server's fully qualified domain name, us
 Starting Zabbix server:   
 ```
 ![zabbix1](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix1.PNG)
-
 ![zabbix2](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix2.PNG)
-
 ![zabbix3](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix3.PNG)
 ![zabbix4](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix4.PNG)
 ![zabbix5](https://github.com/subailiushang/EAM-system-infrastructure/blob/master/Pictures/zabbix5.PNG)
